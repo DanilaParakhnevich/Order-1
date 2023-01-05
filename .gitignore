@@ -1,0 +1,13 @@
+bin
+gradle-app.setting
+.idea
+*.iws
+*.iml
+
+*.iprs
+logs/
+out/
+.gradle
+**/build/
+build
+!src/**/build/
