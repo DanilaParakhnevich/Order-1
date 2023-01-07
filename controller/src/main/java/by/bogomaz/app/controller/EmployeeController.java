@@ -19,10 +19,10 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    @PostMapping("")
-    public ResponseEntity<String> saveUser(@RequestBody EmployeeDto userDto){
-        employeeService.save(userDto);
-        return new ResponseEntity<>("User save successfully", OK);
+    @PostMapping("/add")
+    public ResponseEntity<String> saveEmployee(EmployeeDto employeeDto){
+        employeeService.save(employeeDto);
+        return new ResponseEntity<>("Employee save successfully", OK);
     }
 
     @GetMapping("")
