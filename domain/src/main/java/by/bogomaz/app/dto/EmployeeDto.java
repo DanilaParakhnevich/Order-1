@@ -1,22 +1,18 @@
-package entity;
+package by.bogomaz.app.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class User {
+public class EmployeeDto {
 
-    @Id
-    private Long id;
-    private String name;
+    private long id;
+    private String fullName;
     private String position;
+
 }

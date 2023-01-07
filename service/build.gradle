@@ -1,17 +1,13 @@
-plugins {
-    id 'java'
-}
-
 group 'org.example'
 version '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     implementation project(':persistence')
     implementation project(':domain')
+
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.7.6'
 }

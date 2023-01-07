@@ -1,6 +1,6 @@
-create table Employees (
-    id              bigint,
-    employeeId      bigint,
-    startTime       datetime,
-    endTime         datetime
-)
+create table SickListUnit (
+        id bigint UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        employeeId bigint NOT NULL REFERENCES Employees(id),
+        startTime datetime NOT NULL,
+        endTime datetime NOT NULL
+);

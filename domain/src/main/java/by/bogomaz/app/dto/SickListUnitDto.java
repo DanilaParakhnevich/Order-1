@@ -1,4 +1,4 @@
-package dto;
+package by.bogomaz.app.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +11,11 @@ import java.time.Instant;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SickListDto {
+public class SickListUnitDto {
 
-    private String name;
+    private long id;
+    private long userId;
     private Instant startTime;
     private Instant endTime;
+
 }
