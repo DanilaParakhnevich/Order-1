@@ -14,7 +14,7 @@ import java.time.Instant;
 public class SickListUnitDto {
 
     private long id;
-    private long userId;
+    private EmployeeDto employee;
     private Instant startTime;
     private Instant endTime;
 

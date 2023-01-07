@@ -14,15 +14,10 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
 
 @Controller
-//@RequestMapping("/employees")
+@RequestMapping("/employees")
 public class EmployeeController {
 
     private EmployeeService employeeService;
-
-    @GetMapping("")
-    public String viewHomePage() {
-        return "home";
-    }
 
     @PostMapping("")
     public ResponseEntity<String> saveUser(@RequestBody EmployeeDto userDto){
@@ -30,28 +25,17 @@ public class EmployeeController {
         return new ResponseEntity<>("User save successfully", OK);
     }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public String getAllEmployees(Model model){
         List<EmployeeDto> listUsers = employeeService.findAll();
-        model.addAttribute("listUsers", listUsers);
-        return "users";
+        model.addAttribute("employeeList", listUsers);
+        return "employees";
     }
 
-    @GetMapping("/{id}")
-    public EmployeeDto getEmployeeByFullName(@PathVariable String fullName){
-        return employeeService.findByFullName(fullName);
-    }
-
-    @PutMapping("{id}")
-    public ResponseEntity<String> updateEmployee(@RequestBody EmployeeDto userDto, @PathVariable Long id){
-        employeeService.update(userDto, id);
-        return new ResponseEntity<>("User update successfully", OK);
-    }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable Long id){
+    @PostMapping("/delete/{id}")
+    public String deleteEmployee(@PathVariable Long id, Model model){
         employeeService.delete(id);
-        return new ResponseEntity<>("User delete successfully",OK);
+        return getAllEmployees(model);
     }
 
     @Autowired
