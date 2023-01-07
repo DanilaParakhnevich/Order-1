@@ -6,4 +6,14 @@ dependencies {
     implementation project(':domain')
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.3'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.7.3'
+    implementation group: 'org.webjars', name: 'bootstrap', version: '3.3.5'
+    implementation group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
+    implementation group: 'org.webjars', name: 'webjars-locator-core', version: '0.52'
+    implementation group: 'org.webjars.bower', name: 'jquery', version: '3.5.1'
+    implementation group: 'org.apache.maven', name: 'maven-model', version: '3.8.6'
+    compileOnly group: 'javax.enterprise', name: 'cdi-api', version: '2.0.SP1'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
+
+
 }

@@ -4,6 +4,8 @@ import by.bogomaz.app.dto.EmployeeDto;
 import by.bogomaz.app.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import by.bogomaz.app.EmployeeService;
 
@@ -11,11 +13,16 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
 
-@RestController
-@RequestMapping("/employees")
+@Controller
+//@RequestMapping("/employees")
 public class EmployeeController {
 
     private EmployeeService employeeService;
+
+    @GetMapping("")
+    public String viewHomePage() {
+        return "home";
+    }
 
     @PostMapping("")
     public ResponseEntity<String> saveUser(@RequestBody EmployeeDto userDto){
@@ -23,9 +30,11 @@ public class EmployeeController {
         return new ResponseEntity<>("User save successfully", OK);
     }
 
-    @GetMapping("")
-    public List<EmployeeDto> getAllEmployees(){
-        return employeeService.findAll();
+    @GetMapping("/all")
+    public String getAllEmployees(Model model){
+        List<EmployeeDto> listUsers = employeeService.findAll();
+        model.addAttribute("listUsers", listUsers);
+        return "users";
     }
 
     @GetMapping("/{id}")
