@@ -2,11 +2,10 @@ package by.bogomaz.app.impl;
 
 import by.bogomaz.app.dto.SickListUnitDto;
 import by.bogomaz.app.entity.SickListUnit;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import by.bogomaz.app.repository.SickListRepository;
-import by.bogomaz.app.SickListService;
+import by.bogomaz.app.repository.SickListUnitRepository;
+import by.bogomaz.app.SickListUnitService;
 import by.bogomaz.app.mapper.SickListUnitMapper;
 
 import java.util.List;
@@ -14,9 +13,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class SickListServiceImpl implements SickListService {
+public class SickListUnitServiceImpl implements SickListUnitService {
 
-    private SickListRepository sickListRepository;
+    private SickListUnitRepository sickListRepository;
     private SickListUnitMapper sickListUnitMapper;
 
 
@@ -52,7 +51,7 @@ public class SickListServiceImpl implements SickListService {
     }
 
     @Autowired
-    public void setSickListRepository(SickListRepository sickListRepository) {
+    public void setSickListRepository(SickListUnitRepository sickListRepository) {
         this.sickListRepository = sickListRepository;
     }
 

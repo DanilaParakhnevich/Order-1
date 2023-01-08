@@ -27,24 +27,24 @@
             <thead class="thead-dark">
             </thead>
             <tbody>
-            <span th:if="${sickList != null && sickList.isEmpty()}">List is empty</span>
-            <span th:unless="${sickList != null && sickList.isEmpty()}">
+            <span th:if="${sicklist != null && sicklist.isEmpty()}">List is empty</span>
+            <span th:unless="${sicklist != null && sicklist.isEmpty()}">
                      <tr>
                         <th><b class="field">#</b></th>
-                        <th><b class="field">Full Name</b></th>
+                        <th><b class="field">Employee Full Name</b></th>
                         <th><b class="field">Start Sick</b></th>
                         <th><b class="field">End Sick</b></th>
                          <th><b class="field">Update</b></th>
                         <th><b class="field">Delete</b></th>
                     </tr>
-                    <tr th:each="sick: ${sickList}">
+                    <tr th:each="sick: ${sicklist}">
                         <td style="height: 60px"><b th:text="${sick.id}" th:class="field"></b></td>
-                        <td style="height: 60px"><b th:text="${sick}" th:class="field"></b></td>
-                        <td style="height: 60px"><b th:text="${sick.startTime}" th:class="field"></b></td>
-                        <td style="height: 60px"><b th:text="${sick.endTime}" th:class="field"></b></td>
+                        <td style="height: 60px"><b th:text="${sick.employee.fullName}" th:class="field"></b></td>
+                        <td style="height: 60px"><b th:text="${#dates.format(sick.startTime, 'yyyy-MM-dd')}" th:class="field"></b></td>
+                        <td style="height: 60px"><b th:text="${#dates.format(sick.endTime, 'yyyy-MM-dd')}" th:class="field"></b></td>
                         <td style="height: 60px">
                             <b th:class="field">
-                                <form method="POST" th:action="@{'/sicklist/edit/'}">
+                                <form method="GET" th:action="@{'/sicklist/edit/' + ${sick.id}}">
                                     <button type="submit" class="btn btn-outline-primary">Edit</button>
                                 </form>
                              </b>

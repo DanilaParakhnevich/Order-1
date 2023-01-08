@@ -43,7 +43,7 @@ public class EmployeeController {
         return getAllEmployees(model);
     }
 
-    @GetMapping("")
+    @GetMapping
     public String getAllEmployees(Model model) {
         List<EmployeeDto> listUsers = employeeService.findAll();
         listUsers.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
