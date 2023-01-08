@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Sick List Unit</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap-jsf.css}"/>
+</head>
+<body>
+<div class="container text-center">
+    <div style="display: inline-block">
+        <h1>Add Sick List Unit</h1>
+        <h3><a th:href="@{/sicklist}">Back</a></h3>
+    </div>
+    <form th:action="@{/sicklist/add}" th:object="${sickListUnitDto}"
+          method="POST" style="max-width: 600px; margin: 0 auto;">
+        <div class="m-3">
+            <div class="form-group row">
+                <select th:field="*{employee.fullName}" id="dropEmployee">
+                    <option value="0">Select employee</option>
+                    <option th:each="employee : ${employees}" th:value="${employee.fullName}" th:text="${employee.fullName}"></option>
+                </select>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Start time: </label>
+                <div class="col-8" style="width: 300px; margin-left: auto; margin-right: auto;">
+                    <input type="date" th:field="*{startTime}" id="startTime" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">End time: </label>
+                <div class="col-8" style="width: 300px; margin-left: auto; margin-right: auto;">
+                    <input type="date" th:field="*{endTime}" id="endTime" class="form-control" required />
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary" style="width: 100px">Add</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

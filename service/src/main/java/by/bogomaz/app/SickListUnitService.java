@@ -3,10 +3,9 @@ package by.bogomaz.app;
 import by.bogomaz.app.dto.SickListUnitDto;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface SickListService {
-    Optional<SickListUnitDto> findById(Long id);
+public interface SickListUnitService {
+    SickListUnitDto findById(Long id);
 
     void delete(Long id);
 
@@ -14,5 +13,5 @@ public interface SickListService {
 
     void save(SickListUnitDto object);
 
-    void update (SickListUnitDto object, Long id);
+    void update (SickListUnitDto object);
 }

@@ -1,52 +1,70 @@
 package by.bogomaz.app.controller;
 
 import by.bogomaz.app.dto.EmployeeDto;
-import by.bogomaz.app.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import by.bogomaz.app.EmployeeService;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.OK;
 
-@RestController
+@Controller
 @RequestMapping("/employees")
 public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    @PostMapping("")
-    public ResponseEntity<String> saveUser(@RequestBody EmployeeDto userDto){
-        employeeService.save(userDto);
-        return new ResponseEntity<>("User save successfully", OK);
+    //CREATE METHODS
+    @PostMapping("/add")
+    public String saveEmployee(EmployeeDto employeeDto, Model model) {
+        employeeService.save(employeeDto);
+        return "redirect:/employees";
     }
 
-    @GetMapping("")
-    public List<EmployeeDto> getAllEmployees(){
-        return employeeService.findAll();
+    @GetMapping("/add")
+    public String addEmployee(Model model) {
+        model.addAttribute("employeeDto", new EmployeeDto());
+        return "add-employee";
     }
 
-    @GetMapping("/{id}")
-    public EmployeeDto getEmployeeByFullName(@PathVariable String fullName){
-        return employeeService.findByFullName(fullName);
+    //READ METHODS
+    @GetMapping
+    public String getAllEmployees(Model model) {
+        List<EmployeeDto> listUsers = employeeService.findAll();
+        listUsers.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
+
+        model.addAttribute("employeeList", listUsers);
+        return "employees";
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<String> updateEmployee(@RequestBody EmployeeDto userDto, @PathVariable Long id){
-        employeeService.update(userDto, id);
-        return new ResponseEntity<>("User update successfully", OK);
+    //UPDATE METHODS
+    @GetMapping("/edit/{id}")
+    public String update(@PathVariable long id, Model model) {
+        model.addAttribute("id", employeeService.findById(id));
+        model.addAttribute("employeeDto", new EmployeeDto());
+
+        return "edit-employee";
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable Long id){
+    @PostMapping("/edit/{id}")
+    public String update(EmployeeDto employeeDto, @PathVariable long id, Model model) {
+        employeeDto.setId(id);
+        employeeService.update(employeeDto);
+        return "redirect:/employees";
+    }
+
+    //DELETE METHODS
+    @PostMapping("/delete/{id}")
+    public String deleteEmployee(@PathVariable Long id, Model model) {
         employeeService.delete(id);
-        return new ResponseEntity<>("User delete successfully",OK);
+        return "redirect:/employees";
     }
 
     @Autowired
     public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
 }

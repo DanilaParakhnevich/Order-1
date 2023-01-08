@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface EmployeeService {
 
+    EmployeeDto findById(long id);
+
     EmployeeDto findByFullName(String name);
 
     void delete(Long id);
@@ -15,5 +17,5 @@ public interface EmployeeService {
 
     void save(EmployeeDto object);
 
-    void update (EmployeeDto object, Long id);
+    void update (EmployeeDto object);
 }

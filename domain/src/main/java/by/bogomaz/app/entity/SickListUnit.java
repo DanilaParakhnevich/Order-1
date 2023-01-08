@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Data
@@ -18,8 +18,8 @@ public class SickListUnit {
     @JoinColumn(name = "employeeId")
     private Employee employee;
     @Column
-    private Instant startTime;
+    private Date startTime;
     @Column
-    private Instant endTime;
+    private Date endTime;
 
 }

@@ -1,21 +1,20 @@
 package by.bogomaz.app.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Instant;
+import java.util.Date;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class SickListUnitDto {
 
     private long id;
-    private long userId;
-    private Instant startTime;
-    private Instant endTime;
+    private EmployeeDto employee;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endTime;
 
 }

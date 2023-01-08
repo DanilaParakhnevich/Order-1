@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sick List</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap-jsf.css}"/>
+    <style>
+        .field {
+            display: flex;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+            vertical-align: middle;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="container text-center">
+    <div style="display: inline-block">
+        <h1>Sick list</h1>
+        <h3><a th:href="@{/sicklist/add}">Add Unit</a><a th:href="@{/home}"> Back</a></h3>
+    </div>
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            </thead>
+            <tbody>
+            <span th:if="${sicklist != null && sicklist.isEmpty()}">List is empty</span>
+            <span th:unless="${sicklist != null && sicklist.isEmpty()}">
+                     <tr>
+                        <th><b class="field">#</b></th>
+                        <th><b class="field">Employee Full Name</b></th>
+                        <th><b class="field">Start Sick</b></th>
+                        <th><b class="field">End Sick</b></th>
+                         <th><b class="field">Update</b></th>
+                        <th><b class="field">Delete</b></th>
+                    </tr>
+                    <tr th:each="sick: ${sicklist}">
+                        <td style="height: 60px"><b th:text="${sick.id}" th:class="field"></b></td>
+                        <td style="height: 60px"><b th:text="${sick.employee.fullName}" th:class="field"></b></td>
+                        <td style="height: 60px"><b th:text="${#dates.format(sick.startTime, 'yyyy-MM-dd')}" th:class="field"></b></td>
+                        <td style="height: 60px"><b th:text="${#dates.format(sick.endTime, 'yyyy-MM-dd')}" th:class="field"></b></td>
+                        <td style="height: 60px">
+                            <b th:class="field">
+                                <form method="GET" th:action="@{'/sicklist/edit/' + ${sick.id}}">
+                                    <button type="submit" class="btn btn-outline-primary">Edit</button>
+                                </form>
+                             </b>
+                        </td>
+                        <td style="height: 60px">
+                            <b th:class="field">
+                                <form method="POST" th:action="@{'/sicklist/delete/' + ${sick.id}}">
+                                    <button type="submit" class="btn btn-outline-primary">Delete</button>
+                                </form>
+                            </b>
+                        </td>
+                    </tr>
+                </span>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import by.bogomaz.app.EmployeeService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +17,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
     private EmployeeMapper employeeMapper;
+
+    @Override
+    public EmployeeDto findById(long id) {
+        return employeeMapper.toDto(employeeRepository.findById(id).get());
+    }
 
     @Override
     public EmployeeDto findByFullName(String fullName) {
@@ -36,18 +42,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void save(EmployeeDto userDto) {
-        Employee user = new Employee();
-        employeeRepository.save(setUser(user,userDto));
+    public void save(EmployeeDto employee) {
+        employeeRepository.save(employeeMapper.toEntity(employee));
     }
 
     @Override
-    public void update(EmployeeDto userDto, Long id) {
-        employeeRepository.findById(id).map(newUser -> employeeRepository
-                .save(setUser(newUser,userDto )));
+    public void update(EmployeeDto employeeDto) {
+        employeeRepository.findById(employeeDto.getId()).map(
+                employee ->  employeeRepository.save(employeeMapper.toEntity(employeeDto)));
     }
 
-    private Employee setUser(Employee user, EmployeeDto userDto){
+    private Employee setEmployee(Employee user, EmployeeDto userDto){
         user.setFullName(userDto.getFullName());
         user.setPosition(userDto.getPosition());
 
