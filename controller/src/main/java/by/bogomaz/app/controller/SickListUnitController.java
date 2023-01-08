@@ -17,12 +17,14 @@ public class SickListUnitController {
     private SickListUnitService sickListService;
     private EmployeeService employeeService;
 
+    //CREATE METHODS
+
     @PostMapping("/add")
     public String addSickListUnit(SickListUnitDto sickListUnitDto, Model model) {
         sickListUnitDto.setEmployee(employeeService.findByFullName(sickListUnitDto.getEmployee().getFullName()));
         sickListService.save(sickListUnitDto);
 
-        return getAllSickList(model);
+        return "redirect:/sicklist";
     }
 
     @GetMapping("/add")
@@ -33,6 +35,8 @@ public class SickListUnitController {
         return "add-sicklist";
     }
 
+    //READ METHODS
+
     @GetMapping
     public String getAllSickList(Model model) {
         List<SickListUnitDto> sickList = sickListService.findAll();
@@ -42,11 +46,15 @@ public class SickListUnitController {
         return "sicklist";
     }
 
-    @PostMapping("/delete/{id}")
-    public String deleteSickListUnit(@PathVariable Long id, Model model) {
-        sickListService.delete(id);
+    //UPDATE METHODS
 
-        return getAllSickList(model);
+    @GetMapping("/edit/{id}")
+    public String updateSickListUnit(@PathVariable long id, Model model) {
+        model.addAttribute("sick", sickListService.findById(id));
+        model.addAttribute("employees", employeeService.findAll());
+        model.addAttribute("sickListUnitDto", new SickListUnitDto());
+
+        return "edit-sicklist";
     }
 
     @PostMapping("/edit/{id}")
@@ -54,7 +62,16 @@ public class SickListUnitController {
         sickListUnitDto.setId(id);
         sickListService.update(sickListUnitDto);
 
-        return "add-sicklist";
+        return "redirect:/sicklist";
+    }
+
+    //DELETE METHODS
+
+    @PostMapping("/delete/{id}")
+    public String deleteSickListUnit(@PathVariable Long id, Model model) {
+        sickListService.delete(id);
+
+        return "redirect:/sicklist";
     }
 
     @Autowired

@@ -20,10 +20,8 @@ public class SickListUnitServiceImpl implements SickListUnitService {
 
 
     @Override
-    public Optional<SickListUnitDto> findById(Long id) {
-        Optional<SickListUnit> sickListUnit = sickListRepository.findById(id);
-
-        return sickListUnit.map(sickListUnitMapper::toDto);
+    public SickListUnitDto findById(Long id) {
+        return sickListUnitMapper.toDto(sickListRepository.findById(id).get());
     }
 
     @Override

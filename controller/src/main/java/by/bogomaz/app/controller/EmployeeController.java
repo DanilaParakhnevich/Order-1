@@ -16,10 +16,11 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
 
+    //CREATE METHODS
     @PostMapping("/add")
     public String saveEmployee(EmployeeDto employeeDto, Model model) {
         employeeService.save(employeeDto);
-        return getAllEmployees(model);
+        return "redirect:/employees";
     }
 
     @GetMapping("/add")
@@ -28,9 +29,20 @@ public class EmployeeController {
         return "add-employee";
     }
 
+    //READ METHODS
+    @GetMapping
+    public String getAllEmployees(Model model) {
+        List<EmployeeDto> listUsers = employeeService.findAll();
+        listUsers.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
+
+        model.addAttribute("employeeList", listUsers);
+        return "employees";
+    }
+
+    //UPDATE METHODS
     @GetMapping("/edit/{id}")
     public String update(@PathVariable long id, Model model) {
-        model.addAttribute("employee", employeeService.findById(id));
+        model.addAttribute("id", employeeService.findById(id));
         model.addAttribute("employeeDto", new EmployeeDto());
 
         return "edit-employee";
@@ -40,22 +52,14 @@ public class EmployeeController {
     public String update(EmployeeDto employeeDto, @PathVariable long id, Model model) {
         employeeDto.setId(id);
         employeeService.update(employeeDto);
-        return getAllEmployees(model);
+        return "redirect:/employees";
     }
 
-    @GetMapping
-    public String getAllEmployees(Model model) {
-        List<EmployeeDto> listUsers = employeeService.findAll();
-        listUsers.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
-
-        model.addAttribute("employeeList", listUsers);
-        return "/employees";
-    }
-
+    //DELETE METHODS
     @PostMapping("/delete/{id}")
     public String deleteEmployee(@PathVariable Long id, Model model) {
         employeeService.delete(id);
-        return getAllEmployees(model);
+        return "redirect:/employees";
     }
 
     @Autowired
