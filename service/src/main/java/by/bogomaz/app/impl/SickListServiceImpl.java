@@ -45,9 +45,8 @@ public class SickListServiceImpl implements SickListService {
     }
 
     @Override
-    public void update(SickListUnitDto sickListDto, Long id) {
+    public void update(SickListUnitDto sickListDto) {
         SickListUnit sickListUnit = sickListUnitMapper.toEntity(sickListDto);
-        sickListUnit.setId(id);
 
         sickListRepository.save(sickListUnit);
     }

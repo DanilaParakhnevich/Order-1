@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List Users</title>
+    <title>Sick List</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap-jsf.css}"/>
     <style>
         .field {
@@ -20,36 +20,38 @@
 <div class="container text-center">
     <div style="display: inline-block">
         <h1>List of Users</h1>
-        <h3><a th:href="@{/employees/add}">Add Employee</a><a th:href="@{/home}"> Back</a></h3>
+        <h3><a th:href="@{/sicklist/add}">Add Sick List</a><a th:href="@{/home}"> Back</a></h3>
     </div>
     <div>
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
             </thead>
             <tbody>
-                <span th:if="${employeeList != null && employeeList.isEmpty()}">List is empty</span>
-                <span th:unless="${employeeList != null && employeeList.isEmpty()}">
+            <span th:if="${sickList != null && sickList.isEmpty()}">List is empty</span>
+            <span th:unless="${sickList != null && sickList.isEmpty()}">
                      <tr>
                         <th><b class="field">#</b></th>
                         <th><b class="field">Full Name</b></th>
-                        <th><b class="field">Position</b></th>
-                        <th><b class="field">Edit</b></th>
+                        <th><b class="field">Start Sick</b></th>
+                        <th><b class="field">End Sick</b></th>
+                         <th><b class="field">Update</b></th>
                         <th><b class="field">Delete</b></th>
                     </tr>
-                    <tr th:each="employee: ${employeeList}">
-                        <td style="height: 60px"><b th:text="${employee.id}" th:class="field"></b></td>
-                        <td style="height: 60px"><b th:text="${employee.fullName}" th:class="field"></b></td>
-                        <td style="height: 60px"><b th:text="${employee.position}" th:class="field"></b></td>
+                    <tr th:each="sick: ${sickList}">
+                        <td style="height: 60px"><b th:text="${sick.id}" th:class="field"></b></td>
+                        <td style="height: 60px"><b th:text="${sick}" th:class="field"></b></td>
+                        <td style="height: 60px"><b th:text="${sick.startTime}" th:class="field"></b></td>
+                        <td style="height: 60px"><b th:text="${sick.endTime}" th:class="field"></b></td>
                         <td style="height: 60px">
                             <b th:class="field">
-                                <form method="POST" th:action="@{'/employees/edit/'}">
+                                <form method="POST" th:action="@{'/sicklist/edit/'}">
                                     <button type="submit" class="btn btn-outline-primary">Edit</button>
                                 </form>
                              </b>
                         </td>
                         <td style="height: 60px">
                             <b th:class="field">
-                                <form method="POST" th:action="@{'/employees/delete/' + ${employee.id}}">
+                                <form method="POST" th:action="@{'/sicklist/delete/' + ${sick.id}}">
                                     <button type="submit" class="btn btn-outline-primary">Delete</button>
                                 </form>
                             </b>

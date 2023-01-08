@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import by.bogomaz.app.EmployeeService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,18 +37,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void save(EmployeeDto userDto) {
-        Employee user = new Employee();
-        employeeRepository.save(setUser(user,userDto));
+    public void save(EmployeeDto employeeDto) {
+        Employee employee = new Employee();
+        employeeRepository.save(setEmployee(employee,employeeDto));
     }
 
     @Override
-    public void update(EmployeeDto userDto, Long id) {
-        employeeRepository.findById(id).map(newUser -> employeeRepository
-                .save(setUser(newUser,userDto )));
+    public void update(EmployeeDto employeeDto) {
+        employeeRepository.findById(employeeDto.getId()).map(
+                employee ->  employeeRepository.save(employeeMapper.toEntity(employeeDto)));
     }
 
-    private Employee setUser(Employee user, EmployeeDto userDto){
+    private Employee setEmployee(Employee user, EmployeeDto userDto){
         user.setFullName(userDto.getFullName());
         user.setPosition(userDto.getPosition());
 

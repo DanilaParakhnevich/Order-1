@@ -14,5 +14,5 @@ public interface SickListService {
 
     void save(SickListUnitDto object);
 
-    void update (SickListUnitDto object, Long id);
+    void update (SickListUnitDto object);
 }

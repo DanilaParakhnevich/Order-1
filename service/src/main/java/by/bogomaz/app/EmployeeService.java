@@ -15,5 +15,5 @@ public interface EmployeeService {
 
     void save(EmployeeDto object);
 
-    void update (EmployeeDto object, Long id);
+    void update (EmployeeDto object);
 }
