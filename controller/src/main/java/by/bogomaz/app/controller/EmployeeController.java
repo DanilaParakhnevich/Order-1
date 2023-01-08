@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import by.bogomaz.app.EmployeeService;
 
-import java.util.Comparator;
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/employees")
@@ -41,6 +41,12 @@ public class EmployeeController {
     public String deleteEmployee(@PathVariable Long id, Model model){
         employeeService.delete(id);
         return getAllEmployees(model);
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(EmployeeDto employeeDto, @PathVariable Long id){
+        employeeService.update(employeeDto, id);
+        return "add-employee.html";
     }
 
     @Autowired

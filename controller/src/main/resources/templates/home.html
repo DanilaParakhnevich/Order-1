@@ -6,7 +6,15 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap-jsf.css}"/>
 </head>
 <body>
-    <h3><a th:href="@{employees}">List of Employees</a></h3>
-    <h3><a th:href="@{sick-list}">Sick list</a></h3>
+<form class="navbar-form navbar-left" role="search" style="position: absolute">
+
+</form>
+
+<div class="jumbotron">
+    <h1 style="margin-left: 40px">Sick List</h1>
+    <a th:href="@{employees}" class="btn btn-primary" role="button" style="margin-left: 40px">List of Employees</a>
+    <a th:href="@{sick-list}" class="btn btn-default" role="button" style="margin-left: 40px">Sick list</a>
+</div>
+
 </body>
 </html>
