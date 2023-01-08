@@ -17,7 +17,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/add")
-    public String saveEmployee(EmployeeDto employeeDto, Model model){
+    public String saveOrUpdateEmployee(EmployeeDto employeeDto, Model model){
         employeeService.save(employeeDto);
         return getAllEmployees(model);
     }
@@ -25,7 +25,7 @@ public class EmployeeController {
     @GetMapping("/add")
     public String addEmployee(Model model){
         model.addAttribute("employeeDto", new EmployeeDto());
-        return "add-employee.html";
+        return "add-employee";
     }
 
     @GetMapping("")
@@ -34,7 +34,7 @@ public class EmployeeController {
         listUsers.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
 
         model.addAttribute("employeeList", listUsers);
-        return "employees.html";
+        return "employees";
     }
 
     @PostMapping("/delete/{id}")
@@ -43,10 +43,10 @@ public class EmployeeController {
         return getAllEmployees(model);
     }
 
-    @PostMapping("/edit/{id}")
-    public String update(EmployeeDto employeeDto, @PathVariable Long id){
-        employeeService.update(employeeDto, id);
-        return "add-employee.html";
+    @GetMapping("/edit/{id}")
+    public String update(@PathVariable Long id, Model model){
+        model.addAttribute("employeeId", id);
+        return "add-employee";
     }
 
     @Autowired

@@ -42,7 +42,7 @@
                         <td style="height: 60px"><b th:text="${employee.position}" th:class="field"></b></td>
                         <td style="height: 60px">
                             <b th:class="field">
-                                <form method="POST" th:action="@{'/employees/edit/' + ${employee.id}}">
+                                <form method="GET" th:action="@{'/employees/edit/' + ${employee.id}}">
                                     <button type="submit" class="btn btn-outline-primary">Edit</button>
                                 </form>
                              </b>

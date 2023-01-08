@@ -43,8 +43,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void update(EmployeeDto userDto, Long id) {
-        employeeRepository.findById(id).map(newUser -> employeeRepository
-                .save(setUser(newUser,userDto )));
+        userDto.setId(id);
+        employeeRepository.saveAndFlush(employeeMapper.toEntity(userDto));
     }
 
     private Employee setUser(Employee user, EmployeeDto userDto){
