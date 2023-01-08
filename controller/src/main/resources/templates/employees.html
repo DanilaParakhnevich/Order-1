@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List Users</title>
+    <title>List Of Employees</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap-jsf.css}"/>
     <style>
         .field {
@@ -19,7 +19,7 @@
 <body>
 <div class="container text-center">
     <div style="display: inline-block">
-        <h1>List of Users</h1>
+        <h1>List of employees</h1>
         <h3><a th:href="@{/employees/add}">Add Employee</a><a th:href="@{/home}"> Back</a></h3>
     </div>
     <div>
@@ -42,7 +42,7 @@
                         <td style="height: 60px"><b th:text="${employee.position}" th:class="field"></b></td>
                         <td style="height: 60px">
                             <b th:class="field">
-                                <form method="POST" th:action="@{'/employees/edit/'}">
+                                <form method="GET" th:action="@{'/employees/edit/' + ${employee.id}}">
                                     <button type="submit" class="btn btn-outline-primary">Edit</button>
                                 </form>
                              </b>

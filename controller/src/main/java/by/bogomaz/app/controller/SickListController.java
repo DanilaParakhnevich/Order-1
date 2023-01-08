@@ -1,21 +1,15 @@
 package by.bogomaz.app.controller;
 
-import by.bogomaz.app.dto.EmployeeDto;
 import by.bogomaz.app.dto.SickListUnitDto;
-import by.bogomaz.app.entity.SickListUnit;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import by.bogomaz.app.SickListService;
 
 import java.util.List;
-import java.util.Optional;
 
-import static org.springframework.http.HttpStatus.OK;
-
-@RestController
+@Controller
 @RequestMapping("/sicklist")
 public class SickListController {
 

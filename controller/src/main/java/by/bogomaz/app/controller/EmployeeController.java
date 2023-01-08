@@ -17,36 +17,45 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/add")
-    public String saveEmployee(EmployeeDto employeeDto, Model model){
+    public String saveEmployee(EmployeeDto employeeDto, Model model) {
         employeeService.save(employeeDto);
         return getAllEmployees(model);
     }
 
     @GetMapping("/add")
-    public String addEmployee(Model model){
+    public String addEmployee(Model model) {
         model.addAttribute("employeeDto", new EmployeeDto());
         return "add-employee";
     }
 
+    @GetMapping("/edit/{id}")
+    public String update(@PathVariable long id, Model model) {
+        model.addAttribute("employee", employeeService.findById(id));
+        model.addAttribute("employeeDto", new EmployeeDto());
+
+        return "edit-employee";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(EmployeeDto employeeDto, @PathVariable long id, Model model) {
+        employeeDto.setId(id);
+        employeeService.update(employeeDto);
+        return getAllEmployees(model);
+    }
+
     @GetMapping("")
-    public String getAllEmployees(Model model){
+    public String getAllEmployees(Model model) {
         List<EmployeeDto> listUsers = employeeService.findAll();
         listUsers.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
 
         model.addAttribute("employeeList", listUsers);
-        return "employees";
+        return "/employees";
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteEmployee(@PathVariable Long id, Model model){
+    public String deleteEmployee(@PathVariable Long id, Model model) {
         employeeService.delete(id);
         return getAllEmployees(model);
-    }
-
-    @PostMapping("/edit/")
-    public String update(EmployeeDto employeeDto){
-        employeeService.update(employeeDto);
-        return "edit-employee";
     }
 
     @Autowired

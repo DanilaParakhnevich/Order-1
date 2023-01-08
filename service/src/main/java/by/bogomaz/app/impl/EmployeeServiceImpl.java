@@ -19,6 +19,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeMapper employeeMapper;
 
     @Override
+    public EmployeeDto findById(long id) {
+        return employeeMapper.toDto(employeeRepository.findById(id).get());
+    }
+
+    @Override
     public EmployeeDto findByFullName(String fullName) {
         return employeeMapper.toDto(employeeRepository.findByFullName(fullName));
     }
@@ -37,9 +42,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void save(EmployeeDto employeeDto) {
-        Employee employee = new Employee();
-        employeeRepository.save(setEmployee(employee,employeeDto));
+    public void save(EmployeeDto employee) {
+        employeeRepository.save(employeeMapper.toEntity(employee));
     }
 
     @Override

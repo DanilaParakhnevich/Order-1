@@ -2,35 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Employee</title>
+    <title>Edit Employee</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap-jsf.css}"/>
 </head>
 <body>
 <div class="container text-center">
     <div style="display: inline-block">
-        <h1>Add Employee </h1>
+        <h1>Edit Employee </h1>
         <h3><a th:href="@{/employees}">Back</a></h3>
     </div>
-    <form th:action="@{/employees/edit}" th:object="${employeeDto}"
-          method="post" style="max-width: 600px; margin: 0 auto;">
+    <form th:action="@{'/employees/edit/' + ${employee.id}}" th:object="${employeeDto}"
+          method="POST" style="max-width: 600px; margin: 0 auto;">
         <div class="m-3">
             <div class="form-group row">
                 <label class="col-4 col-form-label">Full Name: </label>
                 <div class="col-8" style="width: 300px; margin-left: auto; margin-right: auto;">
-                    <input type="text" th:field="*{fullName}" id="fullName" class="form-control" required />
+                    <input type="text" th:placeholder="${employee.fullName}" th:field="*{fullName}" class="form-control" required />
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-4 col-form-label">Position: </label>
                 <div class="col-8" style="width: 300px;margin-left: auto; margin-right: auto;">
-                    <input type="text" th:field="*{position}" id="position" class="form-control"
+                    <input type="text" th:placeholder="${employee.position}" th:field="*{position}" class="form-control"
                            required minlength="6" maxlength="64"/>
                 </div>
             </div>
 
             <div>
-                <button type="submit" class="btn btn-primary" style="width: 100px">Add</button>
+                <button type="submit" class="btn btn-primary" style="width: 100px">Edit</button>
             </div>
         </div>
     </form>
